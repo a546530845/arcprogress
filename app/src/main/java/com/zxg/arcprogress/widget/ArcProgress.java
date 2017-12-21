@@ -366,6 +366,9 @@ public class ArcProgress extends View {
             if (running_progress <= getProgress()) {
                 mHandler.sendMessage(mHandler.obtainMessage(0, running_progress, 0));
             } else {
+                if(running_progress > getProgress()){
+                    running_progress--;
+                }
                 //当大于设置的progress的时候就不绘制了
             }
 
@@ -430,7 +433,8 @@ public class ArcProgress extends View {
 
         String result = DecimalUtil.getMoneyDecimal_twoPoint(getMoney() * devideNum);
 
-        Log.e("devideNum,result",devideNum+"----"+result);
+        Log.e("devideNum,result)",devideNum+"----"+result);
+        Log.e("getRunning_progress()",getRunning_progress()+"");
 
         String text = "";
         if (!is_need_twopoint) {

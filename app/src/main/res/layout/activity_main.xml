@@ -23,19 +23,19 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="100000" />
+        android:text="100000.55" />
     <TextView
         android:id="@+id/tx3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="1000000" />
+        android:text="1000000.56" />
     <TextView
         android:id="@+id/tx4"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="1000000" />
+        android:text="1000000000.56" />
 
     <com.zxg.arcprogress.widget.ArcProgress
         android:id="@+id/main_fgt_arc"

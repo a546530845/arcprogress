@@ -33,9 +33,13 @@ public class ArcProgress extends View {
      */
     private Paint paint;
     /**
-     * 金额和可借额度文字的画笔
+     * 金额文字的画笔
      */
     protected Paint textPaint;
+    /**
+     * 可借额度文字的画笔
+     */
+    protected Paint bottom_textPaint;
     /**
      * 外圈圆环画笔
      */
@@ -255,6 +259,12 @@ public class ArcProgress extends View {
         textPaint.setTextSize(textSize);
         textPaint.setAntiAlias(true);
 
+        //实例化文字画笔
+        bottom_textPaint = new TextPaint();
+        bottom_textPaint.setColor(bottom_text_color);
+        bottom_textPaint.setTextSize(bottomTextSize);
+        bottom_textPaint.setAntiAlias(true);
+
         //实例化圆弧画笔
         paint = new Paint();
         paint.setColor(default_unfinished_color);
@@ -319,6 +329,7 @@ public class ArcProgress extends View {
         this.progress = progress;
         this.money = money;
         this.progress_max_from_outside = progress_max_from_outside;
+        this.running_progress = 0;
         //因为中间绘图和运算会花费时间，所以控制不了整个转圈完成时间，所以就不计算速度了
         if (getProgress() != 0) {
             ms_spleed = (int) (total_second / getProgress());
@@ -329,11 +340,14 @@ public class ArcProgress extends View {
 
         mHandler.postDelayed(progressTask, ms_spleed);
     }
-
+    /**
+     * 开始绘制，将动画设置到自定义view中
+     */
     public void startDraw(int progress, double money) {
         this.progress = progress;
         this.money = money;
         this.progress_max_from_outside = 0;
+        this.running_progress = 0;
         if (getProgress() != 0) {
             ms_spleed = (int) (total_second / getProgress());
             if (ms_spleed >= default_ms_spleed) {
@@ -352,7 +366,7 @@ public class ArcProgress extends View {
             if (running_progress <= getProgress()) {
                 mHandler.sendMessage(mHandler.obtainMessage(0, running_progress, 0));
             } else {
-                running_progress = 0;
+                //当大于设置的progress的时候就不绘制了
             }
 
         }
@@ -409,10 +423,14 @@ public class ArcProgress extends View {
     public String getTextString() {
 
         //设置金额,当getProgress_max_from_outside()==0的时候就是未传入此值
-        float devideNum = getRunning_progress() / (float) (getProgress_max_from_outside() == 0 ? getMax() : getProgress_max_from_outside());
+        float devideNum = 0;
+        if(getProgress() != 0){
+            devideNum = getRunning_progress() / (float) (getProgress_max_from_outside() == 0 ? getProgress() : getProgress_max_from_outside());
+        }
 
-        //科学计数法，保留两位小数（为后面的截取做准备）
         String result = DecimalUtil.getMoneyDecimal_twoPoint(getMoney() * devideNum);
+
+        Log.e("devideNum,result",devideNum+"----"+result);
 
         String text = "";
         if (!is_need_twopoint) {
@@ -578,17 +596,17 @@ public class ArcProgress extends View {
         float max_text_width = (float) (getWidth() * text_height_level - outside_circle_strokeWidth - inside_arc_strokeWidth - two_marging_width - point_marging_arc_width - point_marging_text_width) * 2;
 
         if (!TextUtils.isEmpty(text)) {
-            Log.e("范围大小=", textPaint.measureText(text) + "---" + max_text_width);
+            Log.e("范围大小=", textPaint.measureText(text) + "---" + max_text_width+"----"+textSize);
             float textHeight = textPaint.descent() + textPaint.ascent();
             float textBaseline = (float) ((getHeight() - textHeight) * text_height_level);//圆圈的中间
             canvas.drawText(text, (getWidth() - textPaint.measureText(text)) / 2.0f, textBaseline, textPaint);
         }
 
         if (!TextUtils.isEmpty(getBottomText())) {
-            textPaint.setTextSize(bottomTextSize);
-            textPaint.setColor(bottom_text_color);
-            float bottomTextBaseline = (float) ((getHeight() * bottom_text_height_level) - (textPaint.descent() + textPaint.ascent()) / 2);
-            canvas.drawText(getBottomText(), (getWidth() - textPaint.measureText(getBottomText())) / 2.0f, bottomTextBaseline, textPaint);
+//            bottom_textPaint.setTextSize(bottomTextSize);
+//            bottom_textPaint.setColor(bottom_text_color);
+            float bottomTextBaseline = (float) ((getHeight() * bottom_text_height_level) - (bottom_textPaint.descent() + bottom_textPaint.ascent()) / 2);
+            canvas.drawText(getBottomText(), (getWidth() - bottom_textPaint.measureText(getBottomText())) / 2.0f, bottomTextBaseline, bottom_textPaint);
         }
 
 
@@ -598,13 +616,6 @@ public class ArcProgress extends View {
                 (int) (getWidth() - outside_circle_strokeWidth - inside_arc_strokeWidth - two_marging_width - point_marging_arc_width + bitmap_point.getWidth() / 2),
                 (int) (getHeight() / 2 + bitmap_point.getHeight() / 2));
 
-
-        Log.d("宽度1测试=", dip2px(this.getContext(), 2) + "");
-        Log.d("宽度=", outside_circle_strokeWidth + inside_arc_strokeWidth + two_marging_width + point_marging_arc_width + "");
-        Log.d("left=", rMoon.left + "");
-        Log.d("top=", rMoon.top + "");
-        Log.d("right=", rMoon.right + "");
-        Log.d("bottom=", rMoon.bottom + "");
 
         canvas.rotate(startAngle + finishedSweepAngle, getWidth() / 2, getHeight() / 2);
         canvas.drawBitmap(bitmap_point, null, rMoon, null);

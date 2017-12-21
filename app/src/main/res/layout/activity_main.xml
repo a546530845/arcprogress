@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:zxg="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.zxg.arcprogress.MainActivity">
+
+    <TextView
+        android:id="@+id/tx1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="10000" />
+    <TextView
+        android:id="@+id/tx2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="100000" />
+    <TextView
+        android:id="@+id/tx3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="1000000" />
+    <TextView
+        android:id="@+id/tx4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="1000000" />
+
+    <com.zxg.arcprogress.widget.ArcProgress
+        android:id="@+id/main_fgt_arc"
+        android:layout_width="185dp"
+        android:layout_height="185dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:background="#60000000"
+        zxg:arc_finished_color="#ffffff"
+        zxg:arc_unfinished_color="#ffc9ba"
+        zxg:arc_max="100"
+        zxg:arc_progress="0"
+        zxg:arc_angle="270"
+        zxg:arc_inside_arc_stroke_width="2dip"
+        zxg:circle_outside_circle_stroke_width="1dip"
+        zxg:circle_stroke_color="#ffffff"
+        zxg:arc_text_color="#ffffff"
+        zxg:arc_text_size="30dip"
+        zxg:arc_bottom_text="可借额度(元)"
+        zxg:arc_bottom_text_size="12dip"
+        zxg:arc_bottom_text_color="#ffaabb"
+        zxg:two_marging_width="20dip"
+        zxg:point_marging_arc_width="3dip"
+        zxg:point_marging_text_width="3dip"
+        zxg:is_need_twopoint="true"
+        zxg:bottom_image="@mipmap/arcprogress_debt"
+        zxg:point_image="@mipmap/arcprogress_fgt_point"
+        />
+
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Arcprogress自定义属性-->
+    <declare-styleable name="ArcProgress">
+        <!--圆弧完成值-->
+        <attr name="arc_progress" format="integer" />
+        <!--设置圆环的最大值-->
+        <attr name="arc_max" format="integer" />
+        <!--控制圆环的闭合度-->
+        <attr name="arc_angle" format="float" />
+        <!--内圆弧的线粗细值-->
+        <attr name="arc_inside_arc_stroke_width" format="dimension" />
+        <!--外圆的线粗细值-->
+        <attr name="circle_outside_circle_stroke_width" format="dimension" />
+        <!--外圆环的颜色-->
+        <attr name="circle_stroke_color" format="color" />
+        <!--内圆弧未完成的颜色-->
+        <attr name="arc_unfinished_color" format="color" />
+        <!--内圆弧完成的颜色-->
+        <attr name="arc_finished_color" format="color" />
+        <!--金额文字大小-->
+        <attr name="arc_text_size" format="dimension" />
+        <!--金额文字颜色-->
+        <attr name="arc_text_color" format="color" />
+        <!--可借额度文字,底部显示-->
+        <attr name="arc_bottom_text" format="string" />
+        <!--可借额度文字大小-->
+        <attr name="arc_bottom_text_color" format="color" />
+        <!--可借额度文字颜色-->
+        <attr name="arc_bottom_text_size" format="dimension" />
+        <!--两个圆环之间的距离-->
+        <attr name="two_marging_width" format="dimension" />
+        <!--点和圆弧之间的距离-->
+        <attr name="point_marging_arc_width" format="dimension" />
+        <!--点和圆弧之间的距离-->
+        <attr name="point_marging_text_width" format="dimension" />
+        <!--是否需要小数点后两位-->
+        <attr name="is_need_twopoint" format="boolean" />
+        <!--底部图片-->
+        <attr name="bottom_image" format="reference" />
+        <!--底部图片-->
+        <attr name="point_image" format="reference" />
+    </declare-styleable>
+</resources>
+
+
+
